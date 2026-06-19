@@ -746,29 +746,35 @@ export default function HomePage() {
               </div>
 
               {/* Consultation CTA block */}
-              <div className="cta-section flex flex-col items-center text-center">
-                <div className="w-12 h-12 rounded-full bg-[rgba(201,127,181,0.15)] border border-[rgba(201,127,181,0.2)] flex items-center justify-center text-[#C97FB5] mb-4">
-                  <Handshake className="w-6 h-6" />
+              <div className="cta-section grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 items-center text-center md:text-right">
+                <div className="flex flex-col items-center md:items-start">
+                  <div className="flex flex-col md:flex-row items-center gap-4 mb-4 md:mb-2 text-center md:text-right">
+                    <div className="w-12 h-12 rounded-full bg-[rgba(201,127,181,0.15)] border border-[rgba(201,127,181,0.2)] flex items-center justify-center text-[#C97FB5] shrink-0">
+                      <Handshake className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <div className="cta-title !mb-0 font-bold text-lg md:text-xl leading-snug">
+                        مو متأكد وش تحتاج؟ راسلنا ونشوف سواً
+                      </div>
+                    </div>
+                  </div>
+                  <p className="cta-desc !mb-0 flex items-center justify-center md:justify-start gap-1.5 flex-wrap text-sm text-[var(--muted)]">
+                    <span>شارك تفاصيل مشروعك ونرد عليك باقتراح مناسب</span>
+                    <MessageSquare className="w-3.5 h-3.5 text-[#C97FB5]" />
+                  </p>
                 </div>
-                <div className="cta-title">
-                  مو متأكد وش تحتاج؟
-                  <br />
-                  راسلنا ونشوف سواً
+                <div className="w-full md:w-auto">
+                  <a
+                    href="https://wa.me/966592843956?text=هلا عفاف سعود! أبي تساعدوني أختار الخدمة المناسبة 💼"
+                    className="wa-btn lg w-full md:w-auto justify-center px-8"
+                    target="_blank"
+                    rel="noreferrer"
+                    id="btn-general-consult"
+                  >
+                    {renderWaIcon('wa-icon lg')}
+                    تواصل الآن
+                  </a>
                 </div>
-                <p className="cta-desc flex items-center justify-center gap-1.5 flex-wrap">
-                  <span>شارك تفاصيل مشروعك ونرد عليك باقتراح مناسب</span>
-                  <MessageSquare className="w-3.5 h-3.5 text-[#C97FB5]" />
-                </p>
-                <a
-                  href="https://wa.me/966592843956?text=هلا عفاف سعود! أبي تساعدوني أختار الخدمة المناسبة 💼"
-                  className="wa-btn lg w-full justify-center"
-                  target="_blank"
-                  rel="noreferrer"
-                  id="btn-general-consult"
-                >
-                  {renderWaIcon('wa-icon lg')}
-                  تواصل الآن
-                </a>
               </div>
 
               <footer className="mt-[20px] flex flex-col items-center">
@@ -1114,26 +1120,34 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="cta-section flex flex-col items-center text-center">
-                <div className="w-12 h-12 rounded-full bg-[rgba(126,104,171,0.15)] border border-[rgba(126,104,171,0.2)] flex items-center justify-center text-[#A990D4] mb-4">
-                  <MessageSquare className="w-6 h-6" />
+              <div className="cta-section grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 items-center text-center md:text-right">
+                <div className="flex flex-col items-center md:items-start">
+                  <div className="flex flex-col md:flex-row items-center gap-4 mb-4 md:mb-2 text-center md:text-right">
+                    <div className="w-12 h-12 rounded-full bg-[rgba(126,104,171,0.15)] border border-[rgba(126,104,171,0.2)] flex items-center justify-center text-[#A990D4] shrink-0">
+                      <MessageSquare className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <div className="cta-title !mb-0 font-bold text-lg md:text-xl leading-snug">
+                        شفت شغلي؟ راسلني نشوف مشروعك
+                      </div>
+                    </div>
+                  </div>
+                  <p className="cta-desc !mb-0 text-sm text-[var(--muted)]">
+                    شارك تفاصيل مشروعك ونرد باقتراح مناسب
+                  </p>
                 </div>
-                <div className="cta-title">
-                  شفت شغلي؟
-                  <br />
-                  راسلني نشوف مشروعك
+                <div className="w-full md:w-auto">
+                  <a
+                    href="https://wa.me/966592843956?text=هلا عفاف! شفت البورتفوليو وأبي نتكلم عن مشروعي 💼"
+                    className="wa-btn lg w-full md:w-auto justify-center px-8"
+                    target="_blank"
+                    rel="noreferrer"
+                    id="btn-portfolio-whatsapp"
+                  >
+                    {renderWaIcon('wa-icon lg')}
+                    تواصل الآن
+                  </a>
                 </div>
-                <p className="cta-desc">شارك تفاصيل مشروعك ونرد باقتراح مناسب</p>
-                <a
-                  href="https://wa.me/966592843956?text=هلا عفاف! شفت البورتفوليو وأبي نتكلم عن مشروعي 💼"
-                  className="wa-btn lg w-full justify-center"
-                  target="_blank"
-                  rel="noreferrer"
-                  id="btn-portfolio-whatsapp"
-                >
-                  {renderWaIcon('wa-icon lg')}
-                  تواصل الآن
-                </a>
               </div>
 
               <footer className="mt-[20px] flex flex-col items-center">
