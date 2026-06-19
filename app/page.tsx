@@ -560,6 +560,123 @@ export default function HomePage() {
                   ))}
               </div>
 
+              {/* ── Process: آلية وخطوات العمل ── */}
+              <div id="work-process-steps-section" className="mt-14 mb-8" dir="rtl">
+                <div className="section-header">
+                  <div className="section-dot" />
+                  <div className="section-title">خطوات العمل المتبعة</div>
+                  <div className="section-line" />
+                </div>
+
+                <div className="text-center mb-8 px-4">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[rgba(126,104,171,0.08)] border border-[rgba(126,104,171,0.12)] text-[#A990D4] mb-3">
+                    <Sparkles className="w-3.5 h-3.5 text-[#C97FB5]" />
+                    من الفكرة الملهمة إلى التدشين والنمو
+                  </span>
+                  <p className="text-[12px] text-[var(--muted)] max-w-lg mx-auto leading-relaxed">
+                    منهجية عمل واضحة ومدروسة تهدف إلى صياغة هوية بصرية مميزة وبناء متجر إلكتروني متكامل يسهم في تحسين تجربة زوارك ومساندة نمو مشروعك.
+                  </p>
+                </div>
+
+                <div id="work-process-steps-box" className="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+                  {/* Decorative timeline background connector on desktop */}
+                  <div className="hidden md:block absolute top-[44px] left-[10%] right-[10%] h-[1px] bg-gradient-to-r from-transparent via-[rgba(126,104,171,0.15)] to-transparent z-0" />
+
+                  {[
+                    {
+                      num: '01',
+                      title: 'الاستشارة وفهم الرؤية',
+                      desc: 'جلسة نقاشية لبلورة أفكار مشروعك، التعرف على جمهورك المستهدف، وتحديد المتطلبات الفنية والجمالية بدقة قبل البدء.',
+                      icon: Lightbulb,
+                      iconColor: '#A990D4',
+                      borderColor: 'rgba(169,144,212,0.15)',
+                      glowColor: 'rgba(169,144,212,0.2)',
+                    },
+                    {
+                      num: '02',
+                      title: 'الهندسة وتجربة المستخدم',
+                      desc: 'تخطيط هيكل المتجر ورسم مسارات تصفح سهلة وسريعة تسعى لتيسير رحلة العميل داخل المتجر وزيادة فاعلية التصفح.',
+                      icon: Sliders,
+                      iconColor: '#C97FB5',
+                      borderColor: 'rgba(201,127,181,0.15)',
+                      glowColor: 'rgba(201,127,181,0.2)',
+                    },
+                    {
+                      num: '03',
+                      title: 'التصميم وبناء الهوية',
+                      desc: 'ابتكار الهوية البصرية وتصميم واجهات واضحة وجذابة تتناسق بشكل كامل عبر مختلف الأجهزة والشاشات.',
+                      icon: Palette,
+                      iconColor: '#C4B3E3',
+                      borderColor: 'rgba(196,179,227,0.15)',
+                      glowColor: 'rgba(196,179,227,0.2)',
+                    },
+                    {
+                      num: '04',
+                      title: 'التطوير والربط التقني',
+                      desc: 'تأسيس المتجر على منصة سلة أو زد، وتفعيل بوابات الدفع الإلكتروني، الربط مع شركات الشحن، وتهيئته لتحليلات قوقل.',
+                      icon: Code,
+                      iconColor: '#E4A5D0',
+                      borderColor: 'rgba(228,165,208,0.15)',
+                      glowColor: 'rgba(228,165,208,0.2)',
+                    },
+                    {
+                      num: '05',
+                      title: 'التدشين والتحليق',
+                      desc: 'إطلاق وتدشين المتجر مع تقديم جلسة تعريفية لشرح كيفية إدارة الطلبات والمنتجات وتأهيلك للبدء بثقة.',
+                      icon: Rocket,
+                      iconColor: '#2ECC71',
+                      borderColor: 'rgba(46,204,113,0.15)',
+                      glowColor: 'rgba(46,204,113,0.2)',
+                    },
+                  ].map((step, idx) => {
+                    const StepIcon = step.icon;
+                    return (
+                      <div 
+                        key={step.num}
+                        className="relative flex flex-col items-center bg-[var(--bg2)] border border-[var(--border)] rounded-2xl p-5 text-center transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 hover:border-[rgba(201,127,181,0.25)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] z-10 group"
+                        id={`process-step-item-${step.num}`}
+                      >
+                        {/* Circle step badge with light indicator */}
+                        <div className="absolute top-3 left-4 text-[11px] font-mono font-black text-[var(--muted)] opacity-60 tracking-wider">
+                          {step.num}
+                        </div>
+
+                        {/* Icon Wrap with custom background glowing effects */}
+                        <div 
+                          className="w-14 h-14 rounded-full flex items-center justify-center border border-[var(--border)] mb-4 transition-all duration-300 relative overflow-hidden group-hover:scale-110 shadow-sm"
+                          style={{ 
+                            background: `radial-gradient(circle, ${step.borderColor} 0%, rgba(0,0,0,0) 70%)`,
+                          }}
+                        >
+                          <div 
+                            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                            style={{ 
+                              background: `radial-gradient(circle, ${step.glowColor} 0%, rgba(0,0,0,0) 70%)` 
+                            }}
+                          />
+                          <StepIcon 
+                            className="w-6 h-6 transition-transform duration-300 group-hover:rotate-6" 
+                            style={{ color: step.iconColor }}
+                          />
+                        </div>
+
+                        {/* Title and description */}
+                        <h3 className="text-[13px] font-bold text-[var(--text)] mb-2 group-hover:text-[#C97FB5] transition-colors duration-200">
+                          {step.title}
+                        </h3>
+                        <p className="text-[11px] text-[var(--muted)] leading-relaxed text-center">
+                          {step.desc}
+                        </p>
+
+                        {idx < 4 && (
+                          <div className="block md:hidden w-[1px] h-4 bg-gradient-to-b from-[var(--border)] to-transparent my-2" />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
               {/* Consultation CTA block */}
               <div className="cta-section flex flex-col items-center text-center">
                 <div className="w-12 h-12 rounded-full bg-[rgba(201,127,181,0.15)] border border-[rgba(201,127,181,0.2)] flex items-center justify-center text-[#C97FB5] mb-4">
@@ -909,7 +1026,7 @@ export default function HomePage() {
                   <MessageSquare className="w-6 h-6" />
                 </div>
                 <div className="cta-title">
-                  شوفت شغلي؟
+                  شفت شغلي؟
                   <br />
                   راسلني نشوف مشروعك
                 </div>
@@ -1062,9 +1179,9 @@ export default function HomePage() {
               <div className="hero">
                 <div className="hero-tag">على السوشيال ميديا</div>
                 <h1 className="hero-title">
-                  تابعيني
+                  تابعني
                   <br />
-                  <span>وتواصلي ✦</span>
+                  <span>وتواصل معي ✦</span>
                 </h1>
                 <p className="hero-sub">أشارك نصائح، أعمال، وكواليس العمل الرقمي</p>
               </div>
@@ -1104,7 +1221,7 @@ export default function HomePage() {
                     <div className="social-name">واتساب</div>
                     <div className="social-handle">966592843956+</div>
                   </div>
-                  <div className="social-action">راسلي ←</div>
+                  <div className="social-action">راسلني ←</div>
                 </a>
 
                 {/* INSTAGRAM */}
@@ -1136,7 +1253,7 @@ export default function HomePage() {
                     <div className="social-name">انستقرام</div>
                     <div className="social-handle">@ownerafaf</div>
                   </div>
-                  <div className="social-action">تابعي ←</div>
+                  <div className="social-action">تابعني ←</div>
                 </a>
 
                 {/* TIKTOK */}
@@ -1166,7 +1283,7 @@ export default function HomePage() {
                     <div className="social-name">تيك توك</div>
                     <div className="social-handle">@ownerafaf</div>
                   </div>
-                  <div className="social-action">تابعي ←</div>
+                  <div className="social-action">تابعني ←</div>
                 </a>
 
                 {/* TWITTER / X */}
@@ -1194,12 +1311,12 @@ export default function HomePage() {
                     <div className="social-name">منصة 𝕏</div>
                     <div className="social-handle">@ownerafaf</div>
                   </div>
-                  <div className="social-action">تابعي ←</div>
+                  <div className="social-action">تابعني ←</div>
                 </a>
 
                 {/* EMAIL */}
                 <a
-                  href="mailto:contact@afafsaud.com"
+                  href="mailto:ownerafaf@gmail.com"
                   className="social-card"
                   style={{
                     backgroundColor: 'rgba(201,127,181,0.1)',
@@ -1221,9 +1338,9 @@ export default function HomePage() {
                   </div>
                   <div className="social-info">
                     <div className="social-name">البريد الإلكتروني</div>
-                    <div className="social-handle">contact@afafsaud.com</div>
+                    <div className="social-handle">ownerafaf@gmail.com</div>
                   </div>
-                  <div className="social-action">راسلي ←</div>
+                  <div className="social-action">راسلني ←</div>
                 </a>
 
                 {/* BEHANCE */}
@@ -1251,7 +1368,7 @@ export default function HomePage() {
                     <div className="social-name">بيهانس</div>
                     <div className="social-handle">@ownerafaf</div>
                   </div>
-                  <div className="social-action">تابعي ←</div>
+                  <div className="social-action">تابعني ←</div>
                 </a>
               </div>
 
@@ -1265,7 +1382,7 @@ export default function HomePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-[32px]" id="biolinks-card-wrapper">
                 <button className="quick-link flex items-center justify-center gap-2" onClick={() => handleTabChange('services')} id="btn-quick-services">
                   <ShoppingBag className="w-4 h-4 text-[#C97FB5] shrink-0" />
-                  <span>شاهدي خدماتي</span>
+                  <span>تصفّح خدماتي</span>
                 </button>
                 <button className="quick-link flex items-center justify-center gap-2" onClick={() => handleTabChange('portfolio')} id="btn-quick-portfolio">
                   <Briefcase className="w-4 h-4 text-[#A990D4] shrink-0" />
@@ -1279,7 +1396,7 @@ export default function HomePage() {
                   id="link-quick-wa"
                 >
                   <MessageSquare className="w-4 h-4 text-[#A990D4] shrink-0" />
-                  <span>تواصلي معي مباشرة</span>
+                  <span>تواصل معي مباشرة</span>
                 </a>
               </div>
 

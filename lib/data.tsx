@@ -253,15 +253,13 @@ export const portfolioItems: PortfolioItem[] = [
     tags: ['شعار', 'Brand Guide'],
     mockType: 'brand',
     customMockUp: (
-      <div className="port-mock-inner">
-        <div className="font-display text-[18px] font-extrabold text-[#C97FB5] tracking-[-1px] mb-[6px]">QĪRA</div>
-        <div className="w-[50px] h-[1px] bg-[rgba(201,127,181,0.3)] mb-[6px]" />
-        <div className="mock-swatch-row">
-          <div className="mock-swatch bg-[#C97FB5]" />
-          <div className="mock-swatch bg-[#E4A5D0]" />
-          <div className="mock-swatch bg-[#1a0f1e]" />
-        </div>
-        <div className="mt-[7px] text-[8px] text-[#7A718E] tracking-[2px]">FASHION · MODEST</div>
+      <div className="port-mock-inner !p-0 w-full h-full overflow-hidden">
+        <img 
+          src="https://i.imgur.com/memaUyt.png" 
+          alt="براند Qīra — أزياء محتشمة" 
+          className="w-full h-full object-cover select-none" 
+          referrerPolicy="no-referrer"
+        />
       </div>
     )
   },
