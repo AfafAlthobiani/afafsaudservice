@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { ServiceItem, PortfolioItem, FaqItem } from './types';
 
 export const services: ServiceItem[] = [
@@ -197,11 +198,12 @@ export const portfolioItems: PortfolioItem[] = [
     wide: true,
     buyUrl: 'https://salla.store/ar/stores/1916816108',
     customMockUp: (
-      <div className="port-mock-inner !p-0 w-full h-full overflow-hidden">
-        <img 
+      <div className="port-mock-inner !p-0 w-full h-full overflow-hidden relative">
+        <Image 
           src="https://i.imgur.com/xPfHVgu.png" 
           alt="متجر مَدار" 
-          className="w-full h-full object-cover select-none" 
+          fill
+          className="object-cover select-none" 
           referrerPolicy="no-referrer"
         />
       </div>
@@ -215,11 +217,12 @@ export const portfolioItems: PortfolioItem[] = [
     tags: ['شعار', 'ألوان', 'قوالب'],
     mockType: 'brand',
     customMockUp: (
-      <div className="port-mock-inner !p-0 w-full h-full overflow-hidden">
-        <img 
+      <div className="port-mock-inner !p-0 w-full h-full overflow-hidden relative">
+        <Image 
           src="https://i.imgur.com/VFCVLrn.png" 
           alt="براند Nada Studio" 
-          className="w-full h-full object-cover select-none" 
+          fill
+          className="object-cover select-none" 
           referrerPolicy="no-referrer"
         />
       </div>
@@ -232,6 +235,7 @@ export const portfolioItems: PortfolioItem[] = [
     name: 'متجر ملابس أطفال — زد',
     tags: ['زد', 'CSS مخصص'],
     mockType: 'store',
+    status: 'تحت التنفيذ',
     customMockUp: (
       <div className="port-mock-inner">
         <div className="w-[65%] h-[5px] rounded-[3px] bg-[rgba(169,144,212,0.2)] mb-[7px]" />
@@ -253,11 +257,12 @@ export const portfolioItems: PortfolioItem[] = [
     tags: ['شعار', 'Brand Guide'],
     mockType: 'brand',
     customMockUp: (
-      <div className="port-mock-inner !p-0 w-full h-full overflow-hidden">
-        <img 
+      <div className="port-mock-inner !p-0 w-full h-full overflow-hidden relative">
+        <Image 
           src="https://i.imgur.com/memaUyt.png" 
           alt="براند Qīra — أزياء محتشمة" 
-          className="w-full h-full object-cover select-none" 
+          fill
+          className="object-cover select-none" 
           referrerPolicy="no-referrer"
         />
       </div>
@@ -480,6 +485,57 @@ export const portfolioItems: PortfolioItem[] = [
           <div className="h-[14px] rounded-[3px] bg-[rgba(255,255,255,0.05)] border border-white/5" />
         </div>
         <div className="absolute bottom-[4px] font-display text-[7px] text-cyan-400 opacity-60">MAWJ THEME ✦</div>
+      </div>
+    )
+  },
+  {
+    id: 'port-14',
+    cat: 'websites',
+    type: 'صفحة هبوط تسويقية',
+    name: 'صفحة هبوط إبداعية لتطبيق "وصل" للتوصيل السريع',
+    tags: ['صفحة هبوط', 'تفاعل حركي', 'تصميم متجاوب', 'ألوان'],
+    mockType: 'websites',
+    wide: true,
+    customMockUp: (
+      <div className="port-mock-inner flex flex-row justify-between px-[20px] relative items-center w-full">
+        <div className="flex flex-col items-start text-right max-w-[55%]">
+          <div className="text-[5.5px] text-[#A990D4] font-bold tracking-[1.5px] mb-[1px]">WASSAL LANDING PAGE</div>
+          <div className="text-[12px] text-white font-extrabold tracking-tight leading-tight mb-[4.5px]">
+            طلبك يوصلك <span className="text-[#A990D4]">بلمح البصر وبأقل تكلفة</span>
+          </div>
+          <div className="flex gap-[4px] mt-[2px]">
+            <div className="w-[50px] h-[14px] rounded-[4px] bg-gradient-to-r from-[#A990D4] to-[#C97FB5] flex items-center justify-center text-[5px] font-bold text-white shadow-md">حمل التطبيق</div>
+            <div className="w-[35px] h-[14px] rounded-[4px] border border-[rgba(169,144,212,0.3)] bg-[rgba(169,144,212,0.05)] flex items-center justify-center text-[5px] text-[#EDE9F5]">اكتشف المزيد</div>
+          </div>
+        </div>
+        
+        <div className="relative flex items-center justify-center shrink-0 w-[55px] h-[75px] rounded-[10px] border border-white/10 bg-gradient-to-br from-[#121019] to-[#0A090F] shadow-lg">
+          <div className="w-[15px] h-[30px] bg-gradient-to-b from-[#A990D4] to-[#C97FB5] rounded-[2px] flex flex-col justify-between p-[2px]">
+            <div className="w-[4px] h-[4px] rounded-full bg-white/40" />
+            <div className="w-[10px] h-[1.5px] rounded-[0.5px] bg-white/70 self-center" />
+          </div>
+        </div>
+      </div>
+    )
+  },
+  {
+    id: 'port-15',
+    cat: 'websites',
+    type: 'موقع تعريفي متكامل',
+    name: 'الموقع الرسمي لمكتب الرواد للمحاماة والاستشارات القانونية',
+    tags: ['صفحة رئيسية', 'باقة خدمات', 'استمارة تواصل', 'Figma'],
+    mockType: 'websites',
+    customMockUp: (
+      <div className="port-mock-inner p-[12px] flex flex-col items-center justify-center">
+        <div className="text-[7.5px] text-zinc-400 font-bold uppercase tracking-[1.5px] mb-[4px]">AL-RUWAD LAW</div>
+        <div className="w-[36px] h-[36px] rounded-lg border border-zinc-500/20 flex flex-col items-center justify-center bg-[rgba(255,255,255,0.02)] mb-[6px] relative">
+          <span className="text-[10px] text-zinc-300">⚖</span>
+        </div>
+        <div className="w-[80%] h-[3.5px] rounded-[1px] bg-zinc-400/50 mb-[3px]" />
+        <div className="w-[50%] h-[3px] rounded-[1px] bg-zinc-500/30" />
+        <div className="mt-[8px] w-full flex justify-center">
+          <span className="text-[5.5px] text-[#C97FB5] border border-[#C97FB5]/30 bg-[#C97FB5]/5 px-2 py-0.5 rounded-full">استشارة مجانية</span>
+        </div>
       </div>
     )
   }

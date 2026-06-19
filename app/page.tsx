@@ -50,6 +50,74 @@ import { services, portfolioItems, faqItems, faqBrandItems } from '@/lib/data';
 import { LazyPortMock } from '@/components/lazy-port-mock';
 import { AnimatedCounter } from '@/components/animated-counter';
 
+// Tag styling helper for dynamic platform and category colors
+const getTagStyles = (tag: string, theme: 'dark' | 'light') => {
+  const normTag = tag.trim();
+  const isDark = theme === 'dark';
+  
+  if (normTag === 'سلة' || normTag === 'سلة') {
+    return {
+      color: isDark ? '#10B981' : '#059669', // Green
+      backgroundColor: isDark ? 'rgba(16, 185, 129, 0.08)' : 'rgba(5, 150, 105, 0.06)',
+      borderColor: isDark ? 'rgba(16, 185, 129, 0.22)' : 'rgba(5, 150, 105, 0.18)',
+    };
+  }
+  if (normTag === 'زد') {
+    return {
+      color: isDark ? '#F59E0B' : '#D97706', // Gold/Amber
+      backgroundColor: isDark ? 'rgba(245, 158, 11, 0.08)' : 'rgba(217, 119, 6, 0.06)',
+      borderColor: isDark ? 'rgba(245, 158, 11, 0.22)' : 'rgba(217, 119, 6, 0.18)',
+    };
+  }
+  if (normTag === 'انستغرام' || normTag === 'انستقرام') {
+    return {
+      color: isDark ? '#EC4899' : '#DB2777', // Pink/Instagram
+      backgroundColor: isDark ? 'rgba(236, 72, 153, 0.08)' : 'rgba(219, 39, 119, 0.06)',
+      borderColor: isDark ? 'rgba(236, 72, 153, 0.22)' : 'rgba(219, 39, 119, 0.18)',
+    };
+  }
+  if (normTag === 'سناب شات') {
+    return {
+      color: isDark ? '#EAB308' : '#CA8A04', // Yellow
+      backgroundColor: isDark ? 'rgba(234, 179, 8, 0.08)' : 'rgba(202, 138, 4, 0.06)',
+      borderColor: isDark ? 'rgba(234, 179, 8, 0.22)' : 'rgba(202, 138, 4, 0.18)',
+    };
+  }
+  if (normTag === 'فوتوشوب' || normTag === 'CSS مخصص' || normTag.includes('CSS')) {
+    return {
+      color: isDark ? '#3B82F6' : '#2563EB', // Blue
+      backgroundColor: isDark ? 'rgba(59, 130, 246, 0.08)' : 'rgba(37, 99, 235, 0.06)',
+      borderColor: isDark ? 'rgba(59, 130, 246, 0.22)' : 'rgba(37, 99, 235, 0.18)',
+    };
+  }
+  if (normTag.includes('قريباً')) {
+    return {
+      color: isDark ? '#C97FB5' : '#B25D9B', // Orchid/Violet
+      backgroundColor: isDark ? 'rgba(201, 127, 181, 0.08)' : 'rgba(178, 93, 155, 0.06)',
+      borderColor: isDark ? 'rgba(201, 127, 181, 0.22)' : 'rgba(178, 93, 155, 0.18)',
+    };
+  }
+  if (normTag === 'صفحة رئيسية' || normTag === 'صفحة منتج' || normTag === 'واجهة المتجر' || normTag === 'بنر رئيسي' || normTag === 'ربط دفع') {
+    return {
+      color: isDark ? '#14B8A6' : '#0D9488', // Teal
+      backgroundColor: isDark ? 'rgba(20, 184, 166, 0.08)' : 'rgba(13, 148, 136, 0.06)',
+      borderColor: isDark ? 'rgba(20, 184, 166, 0.22)' : 'rgba(13, 148, 136, 0.18)',
+    };
+  }
+  if (normTag === 'شعار' || normTag === 'Brand Guide' || normTag === 'ألوان' || normTag === 'قوالب' || normTag === 'محتوى وبصريات') {
+    return {
+      color: isDark ? '#A78BFA' : '#7C3AED', // Light Purple/Lavender
+      backgroundColor: isDark ? 'rgba(167, 139, 250, 0.08)' : 'rgba(124, 58, 237, 0.06)',
+      borderColor: isDark ? 'rgba(167, 139, 250, 0.22)' : 'rgba(124, 58, 237, 0.18)',
+    };
+  }
+  return {
+    color: isDark ? '#B4AECE' : '#5E5478', // Default muted style
+    backgroundColor: isDark ? 'rgba(126, 104, 171, 0.06)' : 'rgba(126, 104, 171, 0.04)',
+    borderColor: isDark ? 'rgba(126, 104, 171, 0.15)' : 'rgba(126, 104, 171, 0.12)',
+  };
+};
+
 export default function HomePage() {
   // Theme state: 'dark' | 'light'
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
@@ -124,7 +192,7 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = useState<'services' | 'portfolio' | 'faq' | 'social'>('services');
 
   // Portfolio local filter state
-  const [portfolioFilter, setPortfolioFilter] = useState<'all' | 'store' | 'posts' | 'banners' | 'brand' | 'themes'>('all');
+  const [portfolioFilter, setPortfolioFilter] = useState<'all' | 'store' | 'posts' | 'banners' | 'brand' | 'themes' | 'websites'>('all');
 
   // Expanded FAQ items tracker (index-based)
   const [expandedFaqs, setExpandedFaqs] = useState<number[]>([]);
@@ -705,11 +773,13 @@ export default function HomePage() {
 
               <footer className="mt-[20px] flex flex-col items-center">
                 <span className="footer-logo">Afaf Saud ✦</span>
-                <span className="flex items-center justify-center gap-1 mt-1 text-[11px] text-[#7A718E]">
+                <span className="flex flex-wrap items-center justify-center gap-1 mt-1 text-[11px] text-[#7A718E] px-4 text-center">
                   <span>خدمات التسويق وحلول الأعمال</span>
                   <span>·</span>
-                  <MapPin className="w-3 h-3 text-[#C97FB5]" />
-                  <span>المملكة العربية السعودية</span>
+                  <span className="flex items-center gap-0.5">
+                    <MapPin className="w-3 h-3 text-[#C97FB5]" />
+                    <span>المملكة العربية السعودية</span>
+                  </span>
                 </span>
               </footer>
             </div>
@@ -759,6 +829,13 @@ export default function HomePage() {
                     جاهزة
                   </span>
                   متاجر إلكترونية
+                </button>
+                <button
+                  className={`tab ${portfolioFilter === 'websites' ? 'active' : ''}`}
+                  onClick={() => setPortfolioFilter('websites')}
+                  id="tab-filter-websites"
+                >
+                  مواقع تعريفية + صفحات هبوط
                 </button>
                 <button
                   className={`tab ${portfolioFilter === 'themes' ? 'active' : ''}`}
@@ -895,15 +972,31 @@ export default function HomePage() {
                             <div className="flex-1">
                               <div className="port-type">{item.type}</div>
                               <div className="port-name">{item.name}</div>
+                              {item.status && (
+                                <div className="text-[#EF4444] text-[11.5px] font-bold mt-1.5 mb-2 flex items-center gap-1.5" dir="rtl">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-[#EF4444] animate-ping" />
+                                  <span>{item.status}</span>
+                                </div>
+                              )}
                               <div className="port-tags">
-                                {item.tags.map((tag: string, tIndex: number) => (
-                                  <span
-                                    key={tIndex}
-                                    className={`port-tag ${['brand', 'posts', 'banners'].includes(item.cat) ? 'accent-tag' : ''}`}
-                                  >
-                                    {tag}
-                                  </span>
-                                ))}
+                                {item.tags.map((tag: string, tIndex: number) => {
+                                  const customStyle = getTagStyles(tag, theme);
+                                  return (
+                                    <span
+                                      key={tIndex}
+                                      className="port-tag transition-all duration-300 hover:scale-105 cursor-default"
+                                      style={{
+                                        color: customStyle.color,
+                                        backgroundColor: customStyle.backgroundColor,
+                                        borderColor: customStyle.borderColor,
+                                        borderWidth: '1px',
+                                        borderStyle: 'solid'
+                                      }}
+                                    >
+                                      {tag}
+                                    </span>
+                                  );
+                                })}
                               </div>
                             </div>
                             {item.buyUrl && (
@@ -1193,7 +1286,7 @@ export default function HomePage() {
                 <div className="section-line" />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-[28px]" id="social-cards-wrapper">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-[28px] max-w-2xl mx-auto" id="social-cards-wrapper">
                 {/* WHATSAPP */}
                 <a
                   href="https://wa.me/966592843956"
@@ -1224,96 +1317,6 @@ export default function HomePage() {
                   <div className="social-action">راسلني ←</div>
                 </a>
 
-                {/* INSTAGRAM */}
-                <a
-                  href="https://instagram.com/ownerafaf"
-                  className="social-card"
-                  style={{
-                    backgroundColor: 'rgba(225,48,108,0.1)',
-                    borderColor: 'rgba(225,48,108,0.2)',
-                  }}
-                  target="_blank"
-                  rel="noreferrer"
-                  id="social-instagram-link"
-                >
-                  <div
-                    className="social-icon"
-                    style={{
-                      backgroundColor: 'rgba(225,48,108,0.1)',
-                      borderColor: 'rgba(225,48,108,0.2)',
-                    }}
-                  >
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E1306C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                    </svg>
-                  </div>
-                  <div className="social-info">
-                    <div className="social-name">انستقرام</div>
-                    <div className="social-handle">@ownerafaf</div>
-                  </div>
-                  <div className="social-action">تابعني ←</div>
-                </a>
-
-                {/* TIKTOK */}
-                <a
-                  href="https://tiktok.com/@ownerafaf"
-                  className="social-card"
-                  style={{
-                    backgroundColor: 'rgba(0,0,0,0.15)',
-                    borderColor: 'rgba(255,255,255,0.08)',
-                  }}
-                  target="_blank"
-                  rel="noreferrer"
-                  id="social-tiktok-link"
-                >
-                  <div
-                    className="social-icon"
-                    style={{
-                      backgroundColor: 'rgba(255,255,255,0.04)',
-                      borderColor: 'rgba(255,255,255,0.08)',
-                    }}
-                  >
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EDE9F5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
-                    </svg>
-                  </div>
-                  <div className="social-info">
-                    <div className="social-name">تيك توك</div>
-                    <div className="social-handle">@ownerafaf</div>
-                  </div>
-                  <div className="social-action">تابعني ←</div>
-                </a>
-
-                {/* TWITTER / X */}
-                <a
-                  href="https://x.com/ownerafaf"
-                  className="social-card"
-                  style={{
-                    backgroundColor: 'rgba(255,255,255,0.03)',
-                    borderColor: 'rgba(255,255,255,0.08)',
-                  }}
-                  target="_blank"
-                  rel="noreferrer"
-                  id="social-twitter-link"
-                >
-                  <div
-                    className="social-icon"
-                    style={{
-                      backgroundColor: 'rgba(255,255,255,0.04)',
-                      borderColor: 'rgba(255,255,255,0.08)',
-                    }}
-                  >
-                    <span className="text-[#EDE9F5] font-black text-sm">𝕏</span>
-                  </div>
-                  <div className="social-info">
-                    <div className="social-name">منصة 𝕏</div>
-                    <div className="social-handle">@ownerafaf</div>
-                  </div>
-                  <div className="social-action">تابعني ←</div>
-                </a>
-
                 {/* EMAIL */}
                 <a
                   href="mailto:ownerafaf@gmail.com"
@@ -1342,34 +1345,6 @@ export default function HomePage() {
                   </div>
                   <div className="social-action">راسلني ←</div>
                 </a>
-
-                {/* BEHANCE */}
-                <a
-                  href="https://behance.net/ownerafaf"
-                  className="social-card"
-                  style={{
-                    backgroundColor: 'rgba(25,115,232,0.1)',
-                    borderColor: 'rgba(25,115,232,0.2)',
-                  }}
-                  target="_blank"
-                  rel="noreferrer"
-                  id="social-behance-link"
-                >
-                  <div
-                    className="social-icon"
-                    style={{
-                      backgroundColor: 'rgba(25,115,232,0.08)',
-                      borderColor: 'rgba(25,115,232,0.15)',
-                    }}
-                  >
-                    <span className="text-[#1973E8] font-bold text-sm">Bē</span>
-                  </div>
-                  <div className="social-info">
-                    <div className="social-name">بيهانس</div>
-                    <div className="social-handle">@ownerafaf</div>
-                  </div>
-                  <div className="social-action">تابعني ←</div>
-                </a>
               </div>
 
               {/* LINKTREE BIOGRAPHY SECTION */}
@@ -1390,7 +1365,7 @@ export default function HomePage() {
                 </button>
                 <a
                   href="https://wa.me/966592843956?text=هلا عفاف! أبي أتعاون معك 💼"
-                  className="quick-link flex items-center justify-center gap-2 text-center no-underline"
+                  className="quick-link flex items-center justify-center gap-2 text-center no-underline md:col-span-2"
                   target="_blank"
                   rel="noreferrer"
                   id="link-quick-wa"
@@ -1402,11 +1377,13 @@ export default function HomePage() {
 
               <footer className="mt-[20px] flex flex-col items-center">
                 <span className="footer-logo">Afaf Saud ✦</span>
-                <span className="flex items-center justify-center gap-1 mt-1 text-[11px] text-[#7A718E]">
+                <span className="flex flex-wrap items-center justify-center gap-1 mt-1 text-[11px] text-[#7A718E] px-4 text-center">
                   <span>خدمات التسويق والتصميم وحلول الأعمال</span>
                   <span>·</span>
-                  <MapPin className="w-3 h-3 text-[#C97FB5]" />
-                  <span>المملكة العربية السعودية</span>
+                  <span className="flex items-center gap-0.5">
+                    <MapPin className="w-3 h-3 text-[#C97FB5]" />
+                    <span>المملكة العربية السعودية</span>
+                  </span>
                 </span>
               </footer>
             </div>
@@ -1484,6 +1461,7 @@ export default function HomePage() {
           </motion.button>
         )}
       </AnimatePresence>
+
     </div>
   );
 }

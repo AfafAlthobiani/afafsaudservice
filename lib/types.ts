@@ -25,14 +25,15 @@ export interface ServiceItem {
 
 export interface PortfolioItem {
   id: string;
-  cat: 'store' | 'brand' | 'posts' | 'banners' | 'themes';
+  cat: 'store' | 'brand' | 'posts' | 'banners' | 'themes' | 'websites';
   type: string;
   name: string;
   tags: string[];
-  mockType: 'store' | 'brand' | 'posts' | 'banners' | 'themes';
+  mockType: 'store' | 'brand' | 'posts' | 'banners' | 'themes' | 'websites';
   wide?: boolean;
   customMockUp?: React.ReactNode;
   buyUrl?: string;
+  status?: string;
 }
 
 export interface FaqItem {
