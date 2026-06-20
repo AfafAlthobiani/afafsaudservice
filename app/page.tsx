@@ -837,17 +837,23 @@ export default function HomePage() {
                   متاجر إلكترونية
                 </button>
                 <button
-                  className={`tab ${portfolioFilter === 'websites' ? 'active' : ''}`}
+                  className={`tab relative ${portfolioFilter === 'websites' ? 'active' : ''}`}
                   onClick={() => setPortfolioFilter('websites')}
                   id="tab-filter-websites"
                 >
+                  <span className="absolute -top-2.5 -right-1 flex h-4 items-center justify-center bg-amber-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-md z-10 border border-white dark:border-[#13111C] animate-pulse">
+                    للناشئة
+                  </span>
                   مواقع تعريفية
                 </button>
                 <button
-                  className={`tab ${portfolioFilter === 'landing' ? 'active' : ''}`}
+                  className={`tab relative ${portfolioFilter === 'landing' ? 'active' : ''}`}
                   onClick={() => setPortfolioFilter('landing')}
                   id="tab-filter-landing"
                 >
+                  <span className="absolute -top-2.5 -right-1 flex h-4 items-center justify-center bg-emerald-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-md z-10 border border-white dark:border-[#13111C] animate-pulse">
+                    أعلى تحويل
+                  </span>
                   صفحات الهبوط
                 </button>
                 <button
