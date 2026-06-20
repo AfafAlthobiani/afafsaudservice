@@ -795,6 +795,8 @@ body::after {
 .mock-posts { background: linear-gradient(145deg, #0d121c, #091a13); }
 .mock-banners { background: linear-gradient(145deg, #1c0e1a, #0b1524); }
 .mock-themes { background: linear-gradient(145deg, #150d24, #12091e); }
+.mock-websites { background: linear-gradient(145deg, #0b151a, #0c1c24); }
+.mock-landing { background: linear-gradient(145deg, #151021, #0d0914); }
 
 .mock-logo-circle {
   width: 44px; height: 44px;
@@ -1157,6 +1159,14 @@ footer {
 
 .light .mock-themes {
   background: linear-gradient(145deg, #F3EAFB, #E6DCF5) !important;
+}
+
+.light .mock-websites {
+  background: linear-gradient(145deg, #E6F3FB, #D7EAEE) !important;
+}
+
+.light .mock-landing {
+  background: linear-gradient(145deg, #F3EDFC, #E6DDFA) !important;
 }
 
 .light .cta-section {

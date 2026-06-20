@@ -192,7 +192,7 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = useState<'services' | 'portfolio' | 'faq' | 'social'>('services');
 
   // Portfolio local filter state
-  const [portfolioFilter, setPortfolioFilter] = useState<'all' | 'store' | 'posts' | 'banners' | 'brand' | 'themes' | 'websites'>('all');
+  const [portfolioFilter, setPortfolioFilter] = useState<'all' | 'store' | 'posts' | 'banners' | 'brand' | 'themes' | 'websites' | 'landing'>('all');
 
   // Expanded FAQ items tracker (index-based)
   const [expandedFaqs, setExpandedFaqs] = useState<number[]>([]);
@@ -841,7 +841,14 @@ export default function HomePage() {
                   onClick={() => setPortfolioFilter('websites')}
                   id="tab-filter-websites"
                 >
-                  مواقع تعريفية + صفحات هبوط
+                  مواقع تعريفية
+                </button>
+                <button
+                  className={`tab ${portfolioFilter === 'landing' ? 'active' : ''}`}
+                  onClick={() => setPortfolioFilter('landing')}
+                  id="tab-filter-landing"
+                >
+                  صفحات الهبوط
                 </button>
                 <button
                   className={`tab ${portfolioFilter === 'themes' ? 'active' : ''}`}

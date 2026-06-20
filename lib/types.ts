@@ -25,11 +25,11 @@ export interface ServiceItem {
 
 export interface PortfolioItem {
   id: string;
-  cat: 'store' | 'brand' | 'posts' | 'banners' | 'themes' | 'websites';
+  cat: 'store' | 'brand' | 'posts' | 'banners' | 'themes' | 'websites' | 'landing';
   type: string;
   name: string;
   tags: string[];
-  mockType: 'store' | 'brand' | 'posts' | 'banners' | 'themes' | 'websites';
+  mockType: 'store' | 'brand' | 'posts' | 'banners' | 'themes' | 'websites' | 'landing';
   wide?: boolean;
   customMockUp?: React.ReactNode;
   buyUrl?: string;

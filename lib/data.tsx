@@ -490,11 +490,11 @@ export const portfolioItems: PortfolioItem[] = [
   },
   {
     id: 'port-14',
-    cat: 'websites',
+    cat: 'landing',
     type: 'صفحة هبوط تسويقية',
     name: 'صفحة هبوط إبداعية لتطبيق "وصل" للتوصيل السريع',
     tags: ['صفحة هبوط', 'تفاعل حركي', 'تصميم متجاوب', 'ألوان'],
-    mockType: 'websites',
+    mockType: 'landing',
     wide: true,
     customMockUp: (
       <div className="port-mock-inner flex flex-row justify-between px-[20px] relative items-center w-full">
