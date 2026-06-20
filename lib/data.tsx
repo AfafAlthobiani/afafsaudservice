@@ -538,6 +538,26 @@ export const portfolioItems: PortfolioItem[] = [
         </div>
       </div>
     )
+  },
+  {
+    id: 'port-16',
+    cat: 'websites',
+    type: 'موقع تعريفي متكامل',
+    name: 'الموقع التعريفي لمؤسسة رفيق اللمعة للنظافة',
+    tags: ['باقة خدمات', 'حجز فوري للواتساب'],
+    mockType: 'websites',
+    previewUrl: 'https://sparkmate.sa',
+    customMockUp: (
+      <div className="port-mock-inner !p-0 w-full h-full overflow-hidden relative">
+        <Image 
+          src="https://i.imgur.com/gwW146J.png" 
+          alt="الموقع التعريفي لمؤسسة رفيق اللمعة للنظافة" 
+          fill
+          className="object-cover select-none" 
+          referrerPolicy="no-referrer"
+        />
+      </div>
+    )
   }
 ];
 

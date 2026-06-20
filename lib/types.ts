@@ -33,6 +33,7 @@ export interface PortfolioItem {
   wide?: boolean;
   customMockUp?: React.ReactNode;
   buyUrl?: string;
+  previewUrl?: string;
   status?: string;
 }
 

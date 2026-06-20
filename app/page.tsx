@@ -37,7 +37,8 @@ import {
   Brain,
   FileText,
   RefreshCw,
-  CheckCircle
+  CheckCircle,
+  ExternalLink
 } from 'lucide-react';
 
 // Import Types
@@ -1030,6 +1031,24 @@ export default function HomePage() {
                               >
                                 <ShoppingBag className="w-3.5 h-3.5" />
                                 <span>شراء المتجر والبدء فوراً</span>
+                              </a>
+                            )}
+                            {item.previewUrl && (
+                              <a
+                                href={item.previewUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={`mt-1 sm:mt-0 flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-[12.5px] font-bold transition-all hover:opacity-95 shadow-md active:scale-95 text-center shrink-0 ${
+                                  theme === 'dark'
+                                    ? 'bg-gradient-to-r from-[#C97FB5] to-[#E4A5D0] text-[#0C0B10] shadow-[rgba(201,127,181,0.15)]'
+                                    : 'bg-gradient-to-r from-[#B84D9F] to-[#C97FB5] text-white shadow-[rgba(184,77,159,0.15)]'
+                                }`}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                }}
+                              >
+                                <ExternalLink className="w-3.5 h-3.5" />
+                                <span>معاينة</span>
                               </a>
                             )}
                           </div>
