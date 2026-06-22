@@ -38,14 +38,17 @@ import {
   FileText,
   RefreshCw,
   CheckCircle,
-  ExternalLink
+  ExternalLink,
+  Percent,
+  Copy,
+  Tag
 } from 'lucide-react';
 
 // Import Types
-import { ServiceItem, PortfolioItem } from '@/lib/types';
+import { ServiceItem, PortfolioItem, CouponItem } from '@/lib/types';
 
 // Import Static Datasets
-import { services, portfolioItems, faqItems, faqBrandItems } from '@/lib/data';
+import { services, portfolioItems, faqItems, faqBrandItems, coupons } from '@/lib/data';
 
 // Import Custom Modular Components
 import { LazyPortMock } from '@/components/lazy-port-mock';
@@ -189,8 +192,17 @@ export default function HomePage() {
     }).catch(err => console.error('Failed to copy text: ', err));
   };
 
-  // Page Switching state: 'services' | 'portfolio' | 'faq' | 'social'
-  const [activeTab, setActiveTab] = useState<'services' | 'portfolio' | 'faq' | 'social'>('services');
+  const [copiedCouponId, setCopiedCouponId] = useState<string | null>(null);
+
+  const handleCopyCoupon = (id: string, code: string) => {
+    navigator.clipboard.writeText(code).then(() => {
+      setCopiedCouponId(id);
+      setTimeout(() => setCopiedCouponId(null), 2000);
+    }).catch(err => console.error('Failed to copy coupon: ', err));
+  };
+
+  // Page Switching state: 'services' | 'portfolio' | 'coupons' | 'faq' | 'social'
+  const [activeTab, setActiveTab] = useState<'services' | 'portfolio' | 'coupons' | 'faq' | 'social'>('services');
 
   // Portfolio local filter state
   const [portfolioFilter, setPortfolioFilter] = useState<'all' | 'store' | 'brand' | 'themes' | 'websites' | 'landing'>('all');
@@ -200,6 +212,9 @@ export default function HomePage() {
 
   // Services category filter state: 'all' | 'store' | 'landing_web' | 'brand_design'
   const [servicesFilter, setServicesFilter] = useState<string>('all');
+
+  // Coupon category filter state
+  const [couponFilter, setCouponFilter] = useState<'all' | 'theme' | 'app' | 'salla'>('all');
 
   // Utility to switch active tab with window reset scroll
   const handleTabChange = (tab: typeof activeTab) => {
@@ -305,6 +320,16 @@ export default function HomePage() {
               }`}
             >
               أعمالي
+            </button>
+            <button
+              onClick={() => handleTabChange('coupons')}
+              className={`px-4.5 py-2 text-[12.5px] font-bold rounded-full transition-all duration-300 ${
+                activeTab === 'coupons' 
+                  ? 'bg-gradient-to-r from-[#5A4880] to-[#7e68ab] text-white shadow-sm' 
+                  : (theme === 'dark' ? 'text-[#7A718E] hover:text-[#EDE9F5]' : 'text-[#696178] hover:text-[#241E30]')
+              }`}
+            >
+              أكواد الخصم
             </button>
             <button
               onClick={() => handleTabChange('faq')}
@@ -1183,6 +1208,223 @@ export default function HomePage() {
 
 
           {/*********************************************************
+           * TAB 3: ACTIVE COUPONS (coupons)
+           *********************************************************/}
+          {activeTab === 'coupons' && (
+            <div className="wrap" id="coupons-independent-view">
+              {/* Mobile Topbar */}
+              <div className="topbar md:hidden">
+                <div className="topbar-logo">Afaf Saud</div>
+                <div className="topbar-pill flex items-center gap-1">
+                  <Percent className="w-3.5 h-3.5 text-[#C97FB5]" />
+                  <span>أكواد الخصم</span>
+                </div>
+              </div>
+
+              {/* Hero Section */}
+              <div className="hero pb-6">
+                <div className="hero-tag">توفير وعروض متميزة</div>
+                <h1 className="hero-title !text-[30px] md:!text-[36px]">
+                  أكواد الخصم الفعّالة
+                  <br />
+                  <span>لاستثمار أذكى بمشروعك ✦</span>
+                </h1>
+                <p className="hero-desc max-w-2xl mx-auto mt-3">
+                  كوبونات وعروض حصرية للاستفادة من تخفيضات منصات التجارة الإلكترونية، الثيمات، والتطبيقات المعتمدة لتطوير تجارتك.
+                </p>
+              </div>
+
+              {/* Filters Container */}
+              <div className="filter-tabs-container mb-8" dir="rtl">
+                <div className="filter-tabs justify-center" id="coupon-filter-container">
+                  <button
+                    className={`tab ${couponFilter === 'all' ? 'active' : ''}`}
+                    onClick={() => setCouponFilter('all')}
+                  >
+                    الكل
+                  </button>
+                  <button
+                    className={`tab ${couponFilter === 'theme' ? 'active' : ''}`}
+                    onClick={() => setCouponFilter('theme')}
+                  >
+                    الثيمات
+                  </button>
+                  <button
+                    className={`tab ${couponFilter === 'app' ? 'active' : ''}`}
+                    onClick={() => setCouponFilter('app')}
+                  >
+                    التطبيقات
+                  </button>
+                  <button
+                    className={`tab ${couponFilter === 'salla' ? 'active' : ''}`}
+                    onClick={() => setCouponFilter('salla')}
+                  >
+                    باقات سلة
+                  </button>
+                </div>
+              </div>
+
+              {/* Coupons Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 max-w-[1140px] mx-auto mb-16" dir="rtl">
+                {coupons
+                  .filter(item => {
+                    if (couponFilter === 'all') return true;
+                    if (couponFilter === 'theme') return item.productType === 'ثيم';
+                    if (couponFilter === 'app') return item.productType === 'تطبيق';
+                    if (couponFilter === 'salla') return item.productType === 'باقة سلة';
+                    return true;
+                  })
+                  .map((item) => {
+                    const isCopied = copiedCouponId === item.id;
+                    return (
+                      <motion.div
+                        key={item.id}
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -12 }}
+                        className={`p-6 rounded-2xl border transition-all duration-300 relative overflow-hidden flex flex-col justify-between ${
+                          theme === 'dark'
+                            ? 'border-[rgba(201,127,181,0.25)] bg-[linear-gradient(135deg,rgba(27,24,37,0.85)_0%,rgba(19,17,26,0.92)_100%)] shadow-xl shadow-[rgba(126,104,171,0.05)]'
+                            : 'border-[rgba(184,77,159,0.22)] bg-[linear-gradient(135deg,rgba(255,255,255,0.95)_0%,rgba(248,246,252,0.98)_100%)] shadow-md shadow-[rgba(126,104,171,0.02)]'
+                        }`}
+                        id={`coupon-card-${item.id}`}
+                      >
+                        {/* Soft ambient glow inside the card */}
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(201,127,181,0.06),transparent_50%)] pointer-events-none" />
+
+                        <div>
+                          {/* Card Header (Product Type Tag & Active Status) */}
+                          <div className="flex items-center justify-between mb-4">
+                            <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-bold ${
+                              theme === 'dark' 
+                                ? 'bg-[rgba(201,127,181,0.12)] text-[#C97FB5] border border-[rgba(201,127,181,0.2)]'
+                                : 'bg-[rgba(184,77,159,0.08)] text-[#B84D9F] border border-[rgba(184,77,159,0.15)]'
+                            }`}>
+                              <Tag className="w-3 h-3" />
+                              {item.productType}
+                            </span>
+                            
+                            <span className="inline-flex items-center gap-1.5 text-xs text-emerald-500 font-medium font-bold">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                              مفعل
+                            </span>
+                          </div>
+
+                          {/* Product Title */}
+                          <h3 className={`text-[19px] font-bold mb-2 ${
+                            theme === 'dark' ? 'text-[#EDE9F5]' : 'text-[#191424]'
+                          }`}>
+                            {item.product}
+                          </h3>
+
+                          {/* Exceptions and Sub-Marketer information */}
+                          <div className="space-y-1.5 mb-6 text-sm">
+                            <div className="flex items-center gap-1.5 text-[#7A718E] dark:text-[#A990D4]">
+                              <span className="font-semibold text-xs opacity-75">الاستثناءات:</span>
+                              <span className="text-xs">{item.exceptions || 'لا يوجد'}</span>
+                            </div>
+                            {item.subMarketer && item.subMarketer !== '—' && (
+                              <div className="flex items-center gap-1.5 text-[#7A718E] dark:text-[#A990D4]">
+                                <span className="font-semibold text-xs opacity-75">المسوّق الفرعي:</span>
+                                <span className="text-xs">{item.subMarketer}</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Interactive Coupon Box with Dashed Border */}
+                        <div className="space-y-4">
+                          <div 
+                            onClick={() => handleCopyCoupon(item.id, item.coupon)}
+                            className={`group/coupon relative p-3.5 rounded-xl border-2 border-dashed flex items-center justify-between cursor-pointer transition-all duration-300 ${
+                              isCopied 
+                                ? 'border-emerald-500 bg-emerald-500/10'
+                                : theme === 'dark'
+                                  ? 'border-[rgba(126,104,171,0.3)] bg-[rgba(126,104,171,0.04)] hover:border-[#C97FB5] hover:bg-[#C97FB5]/5'
+                                  : 'border-[rgba(184,77,159,0.25)] bg-[#FAF8FC] hover:border-[#B84D9F] hover:bg-[#B84D9F]/5'
+                            }`}
+                            title="انقر لنسخ الكوبون"
+                          >
+                            <div className="flex flex-col items-start gap-0.5">
+                              <span className="text-[10px] uppercase tracking-wider text-[#7A718E] dark:text-[#A990D4]">رمز الكوبون</span>
+                              <span className="font-mono text-[17px] font-bold tracking-wider uppercase text-[#B84D9F] dark:text-[#C97FB5]">
+                                {item.coupon}
+                              </span>
+                            </div>
+                            
+                            <button className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${
+                              isCopied 
+                                ? 'bg-emerald-500 text-white' 
+                                : 'bg-[var(--bg3)] text-[var(--pur-light)] group-hover/coupon:text-[var(--accent)]'
+                            }`}>
+                              {isCopied ? (
+                                <Check className="w-4.5 h-4.5" />
+                              ) : (
+                                <Copy className="w-4.5 h-4.5" />
+                              )}
+                            </button>
+
+                            {/* Floating temporary tooltip */}
+                            <AnimatePresence>
+                              {isCopied && (
+                                <motion.div 
+                                  initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                                  exit={{ opacity: 0, scale: 0.9 }}
+                                  className="absolute -top-8 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded bg-emerald-600 text-white text-[10px] font-bold shadow-md z-10 whitespace-nowrap"
+                                >
+                                  تم نسخ الكوبون! ✅
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
+                          </div>
+
+                          {/* CTA to use Coupon Link */}
+                          <a
+                            href={item.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`w-full py-2.5 px-4 rounded-xl flex items-center justify-center gap-1.5 font-bold transition-all duration-300 text-[13px] text-center shadow-md active:scale-95 ${
+                              theme === 'dark' 
+                                ? 'bg-gradient-to-r from-[#C97FB5] to-[#E4A5D0] text-[#0C0B10] hover:opacity-95 shadow-[rgba(201,127,181,0.15)]'
+                                : 'bg-gradient-to-r from-[#B84D9F] to-[#C97FB5] text-white hover:opacity-95 shadow-[rgba(184,77,159,0.15)]'
+                            }`}
+                          >
+                            <ExternalLink className="w-4 h-4" />
+                            <span>الرابط</span>
+                          </a>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+              </div>
+
+              {/* supportive message footer inside coupon tab */}
+              <div className="text-center pb-12 flex flex-col items-center justify-center gap-2">
+                <p className="text-xs text-[#7A718E] dark:text-[#A990D4] max-w-md mx-auto">
+                  تنويه: جميع الأكواد والكوبونات أعلاه يتم تحديثها دورياً للتحقق من صلاحيتها وفاعليتها لتقديم أفضل تجربة ممكنة. ✦
+                </p>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[rgba(126,104,171,0.06)] border border-[rgba(126,104,171,0.12)] text-[11px] text-[#7A718E] dark:text-[#A990D4] font-bold">
+                  <RefreshCw className="w-3 h-3 text-[#C97FB5]" />
+                  <span>آخر تحديث للأكواد: ٢٢ يونيو ٢٠٢٦ ✦</span>
+                </div>
+              </div>
+
+              <footer className="mt-[20px] flex flex-col items-center">
+                <span className="footer-logo">Afaf Saud ✦</span>
+                <span className="flex items-center justify-center gap-1 mt-1 text-[11px] text-[#7A718E]">
+                  <span>خدمات التسويق والتصميم وحلول الأعمال</span>
+                  <span>·</span>
+                  <MapPin className="w-3 h-3 text-[#C97FB5]" />
+                  <span>المملكة العربية السعودية</span>
+                </span>
+              </footer>
+            </div>
+          )}
+
+
+
+          {/*********************************************************
            * TAB 4: FAQ (faq)
            *********************************************************/}
           {activeTab === 'faq' && (
@@ -1446,6 +1688,18 @@ export default function HomePage() {
             <Briefcase className="w-5 h-5" />
           </span>
           <span className="nav-label">أعمالي</span>
+          <div className="nav-dot" />
+        </button>
+
+        <button
+          className={`nav-btn ${activeTab === 'coupons' ? 'active' : ''}`}
+          onClick={() => handleTabChange('coupons')}
+          id="nav-btn-coupons"
+        >
+          <span className="nav-icon flex items-center justify-center mb-1">
+            <Percent className="w-5 h-5" />
+          </span>
+          <span className="nav-label">الكوبونات</span>
           <div className="nav-dot" />
         </button>
 

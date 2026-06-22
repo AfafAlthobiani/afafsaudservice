@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { ServiceItem, PortfolioItem, FaqItem } from './types';
+import { ServiceItem, PortfolioItem, FaqItem, CouponItem } from './types';
 
 export const services: ServiceItem[] = [
   {
@@ -600,5 +600,58 @@ export const faqBrandItems: FaqItem[] = [
   {
     q: 'كم خياراً للشعار ستقدمين؟',
     a: 'أقدم خياراً واحداً مدروساً بعد استيعاب متطلباتك، وليس عشوائياً. جولة تعديل واحدة مشمولة.'
+  }
+];
+
+export const coupons: CouponItem[] = [
+  {
+    id: 'coupon-1',
+    coupon: 'F-ORQDDO2P',
+    product: 'عالي',
+    productType: 'ثيم',
+    exceptions: 'لا يوجد',
+    subMarketer: '—',
+    status: 'active',
+    link: 'https://mtjr.at/6a39bca3jqgfhu'
+  },
+  {
+    id: 'coupon-2',
+    coupon: 'F-BT1A98JM',
+    product: 'سيليا',
+    productType: 'ثيم',
+    exceptions: 'لا يوجد',
+    subMarketer: '—',
+    status: 'active',
+    link: 'https://mtjr.at/6a39bbd0945r1t'
+  },
+  {
+    id: 'coupon-6',
+    coupon: 'F-FT0F7WTP',
+    product: 'علي اكسبريس - أوتو دروب',
+    productType: 'تطبيق',
+    exceptions: 'لا يوجد',
+    subMarketer: '—',
+    status: 'active',
+    link: 'https://mtjr.at/6a37d1c2i7aylc'
+  },
+  {
+    id: 'coupon-7',
+    coupon: 'F-AS78X6TT',
+    product: 'AI لوكتشيك',
+    productType: 'تطبيق',
+    exceptions: 'لا يوجد',
+    subMarketer: '—',
+    status: 'active',
+    link: 'https://mtjr.at/6a37b9ddt4kwb4'
+  },
+  {
+    id: 'coupon-8',
+    coupon: 'F-YQTQP9G3',
+    product: 'باقات سلة (بلس، برو)',
+    productType: 'باقة سلة',
+    exceptions: 'لا يوجد',
+    subMarketer: '—',
+    status: 'active',
+    link: 'https://mtjr.at/Mw_e9yLiRu'
   }
 ];

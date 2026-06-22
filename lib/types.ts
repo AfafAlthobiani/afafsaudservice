@@ -41,3 +41,14 @@ export interface FaqItem {
   q: string;
   a: string;
 }
+
+export interface CouponItem {
+  id: string;
+  coupon: string;
+  product: string;
+  productType: string;
+  exceptions?: string;
+  subMarketer?: string;
+  status: 'active' | 'inactive';
+  link: string;
+}
