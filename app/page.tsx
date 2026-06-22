@@ -193,7 +193,7 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = useState<'services' | 'portfolio' | 'faq' | 'social'>('services');
 
   // Portfolio local filter state
-  const [portfolioFilter, setPortfolioFilter] = useState<'all' | 'store' | 'posts' | 'banners' | 'brand' | 'themes' | 'websites' | 'landing'>('all');
+  const [portfolioFilter, setPortfolioFilter] = useState<'all' | 'store' | 'brand' | 'themes' | 'websites' | 'landing'>('all');
 
   // Expanded FAQ items tracker (index-based)
   const [expandedFaqs, setExpandedFaqs] = useState<number[]>([]);
@@ -865,20 +865,6 @@ export default function HomePage() {
                   ثيمات مطورة
                 </button>
                 <button
-                  className={`tab ${portfolioFilter === 'posts' ? 'active' : ''}`}
-                  onClick={() => setPortfolioFilter('posts')}
-                  id="tab-filter-posts"
-                >
-                  منشورات رقمية
-                </button>
-                <button
-                  className={`tab ${portfolioFilter === 'banners' ? 'active' : ''}`}
-                  onClick={() => setPortfolioFilter('banners')}
-                  id="tab-filter-banners"
-                >
-                  بنرات متاجر
-                </button>
-                <button
                   className={`tab ${portfolioFilter === 'brand' ? 'active' : ''}`}
                   onClick={() => setPortfolioFilter('brand')}
                   id="tab-filter-brand"
@@ -969,7 +955,7 @@ export default function HomePage() {
                     {portfolioItems
                       .filter((item: PortfolioItem) => {
                         if (portfolioFilter === 'all') {
-                          return item.cat !== 'themes';
+                          return !['themes', 'posts', 'banners'].includes(item.cat);
                         }
                         return item.cat === portfolioFilter;
                       })
@@ -984,7 +970,7 @@ export default function HomePage() {
                           className={`port-card ${item.wide ? 'wide' : ''}`}
                           id={`port-card-${item.id}`}
                         >
-                          <div className={`stripe ${['brand', 'posts', 'banners'].includes(item.cat) ? 'accent' : ''}`} />
+                          <div className={`stripe ${['brand'].includes(item.cat) ? 'accent' : ''}`} />
                           <LazyPortMock mockType={item.mockType} wide={item.wide}>
                             {item.customMockUp}
                           </LazyPortMock>
