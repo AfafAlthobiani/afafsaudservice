@@ -201,6 +201,55 @@ export default function HomePage() {
     }).catch(err => console.error('Failed to copy coupon: ', err));
   };
 
+  const [sharedCouponId, setSharedCouponId] = useState<string | null>(null);
+  const [isSharing, setIsSharing] = useState(false);
+
+  const handleShareCoupon = async (id: string, coupon: string, product: string, link: string) => {
+    if (isSharing) return;
+    setIsSharing(true);
+
+    const text = `استخدم كود الخصم: ${coupon} لـ ${product}\nالرابط من هنا: ${link}`;
+
+    const fallbackCopyToClipboard = async () => {
+      try {
+        await navigator.clipboard.writeText(text);
+        setSharedCouponId(id);
+        setTimeout(() => setSharedCouponId(null), 2500);
+      } catch (clipboardErr) {
+        console.warn('Failed to copy to clipboard (fallback):', clipboardErr);
+      }
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `كوبون لـ ${product}`,
+          text: text,
+          url: link
+        });
+        setSharedCouponId(id);
+        setTimeout(() => setSharedCouponId(null), 2500);
+      } catch (err: any) {
+        // If the user cancelled the share sheet, the browser throws an AbortError.
+        // We shouldn't show a fallback or log as a severe error in this case.
+        if (err && (err.name === 'AbortError' || err.message?.toLowerCase().includes('cancel') || err.message?.toLowerCase().includes('abort'))) {
+          console.log('Share canceled by user');
+        } else {
+          console.error('Error sharing:', err);
+          // Only attempt fallback if document is focused to avoid clipboard focus permission errors
+          if (typeof document !== 'undefined' && document.hasFocus()) {
+            await fallbackCopyToClipboard();
+          }
+        }
+      } finally {
+        setIsSharing(false);
+      }
+    } else {
+      await fallbackCopyToClipboard();
+      setIsSharing(false);
+    }
+  };
+
   // Page Switching state: 'services' | 'portfolio' | 'coupons' | 'faq' | 'social'
   const [activeTab, setActiveTab] = useState<'services' | 'portfolio' | 'coupons' | 'faq' | 'social'>('services');
 
@@ -1276,6 +1325,7 @@ export default function HomePage() {
                   })
                   .map((item) => {
                     const isCopied = copiedCouponId === item.id;
+                    const isShared = sharedCouponId === item.id;
                     return (
                       <motion.div
                         key={item.id}
@@ -1379,20 +1429,55 @@ export default function HomePage() {
                             </AnimatePresence>
                           </div>
 
-                          {/* CTA to use Coupon Link */}
-                          <a
-                            href={item.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`w-full py-2.5 px-4 rounded-xl flex items-center justify-center gap-1.5 font-bold transition-all duration-300 text-[13px] text-center shadow-md active:scale-95 ${
-                              theme === 'dark' 
-                                ? 'bg-gradient-to-r from-[#C97FB5] to-[#E4A5D0] text-[#0C0B10] hover:opacity-95 shadow-[rgba(201,127,181,0.15)]'
-                                : 'bg-gradient-to-r from-[#B84D9F] to-[#C97FB5] text-white hover:opacity-95 shadow-[rgba(184,77,159,0.15)]'
-                            }`}
-                          >
-                            <ExternalLink className="w-4 h-4" />
-                            <span>الرابط</span>
-                          </a>
+                          {/* CTA to use Coupon Link & Share */}
+                          <div className="flex items-center gap-2">
+                            <a
+                              id={`coupon-link-btn-${item.id}`}
+                              href={item.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`flex-1 py-2.5 px-4 rounded-xl flex items-center justify-center gap-1.5 font-bold transition-all duration-300 text-[13px] text-center shadow-md active:scale-95 ${
+                                theme === 'dark' 
+                                  ? 'bg-gradient-to-r from-[#C97FB5] to-[#E4A5D0] text-[#0C0B10] hover:opacity-95 shadow-[rgba(201,127,181,0.15)]'
+                                  : 'bg-gradient-to-r from-[#B84D9F] to-[#C97FB5] text-white hover:opacity-95 shadow-[rgba(184,77,159,0.15)]'
+                              }`}
+                            >
+                              <ExternalLink className="w-4 h-4" />
+                              <span>الرابط</span>
+                            </a>
+                            <button
+                              id={`coupon-share-btn-${item.id}`}
+                              onClick={() => handleShareCoupon(item.id, item.coupon, item.product, item.link)}
+                              className={`p-2.5 h-[38.5px] w-[38.5px] rounded-xl flex items-center justify-center transition-all duration-300 relative cursor-pointer active:scale-95 border ${
+                                isShared
+                                  ? 'border-emerald-500 bg-emerald-500/10 text-emerald-500'
+                                  : theme === 'dark'
+                                    ? 'bg-[rgba(126,104,171,0.08)] border-[rgba(126,104,171,0.22)] text-[#C97FB5] hover:bg-[rgba(126,104,171,0.15)]'
+                                    : 'bg-[#FAF8FC] border-[rgba(184,77,159,0.22)] text-[#B84D9F] hover:bg-[#B84D9F]/5'
+                              }`}
+                              title="مشاركة الكوبون"
+                            >
+                              {isShared ? (
+                                <Check className="w-4.5 h-4.5" />
+                              ) : (
+                                <Share2 className="w-4.5 h-4.5" />
+                              )}
+                              
+                              {/* share tooltip */}
+                              <AnimatePresence>
+                                {isShared && (
+                                  <motion.div 
+                                    initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.9 }}
+                                    className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-emerald-600 text-white text-[9px] font-bold shadow-md z-10 whitespace-nowrap"
+                                  >
+                                    تم نسخ الرابط! ✅
+                                  </motion.div>
+                                )}
+                              </AnimatePresence>
+                            </button>
+                          </div>
                         </div>
                       </motion.div>
                     );
