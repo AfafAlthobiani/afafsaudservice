@@ -307,6 +307,8 @@ export default function HomePage() {
     }
   };
 
+
+
   return (
     <div className="relative min-h-screen pb-16 md:pb-8">
       <div className="glow-bg" />
