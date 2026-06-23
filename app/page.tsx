@@ -41,7 +41,8 @@ import {
   ExternalLink,
   Percent,
   Copy,
-  Tag
+  Tag,
+  Send
 } from 'lucide-react';
 
 // Import Types
@@ -1647,15 +1648,18 @@ export default function HomePage() {
                 <div className="section-line" />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-[28px] max-w-2xl mx-auto" id="social-cards-wrapper">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-[28px] max-w-4xl mx-auto" id="social-cards-wrapper">
                 {/* WHATSAPP */}
                 <a
                   href="https://wa.me/966592843956"
-                  className="social-card"
+                  className="social-card animate-fade-in"
                   style={{
-                    backgroundColor: 'rgba(37,211,102,0.12)',
-                    borderColor: 'rgba(37,211,102,0.25)',
-                  }}
+                    '--card-bg': 'rgba(37,211,102,0.06)',
+                    '--card-border': 'rgba(37,211,102,0.18)',
+                    '--card-bg-hover': 'rgba(37,211,102,0.12)',
+                    '--card-border-hover': 'rgba(37,211,102,0.35)',
+                    '--card-hover-shadow': '0 8px 25px rgba(37,211,102,0.14)',
+                  } as React.CSSProperties}
                   target="_blank"
                   rel="noreferrer"
                   id="social-wa-link"
@@ -1663,8 +1667,8 @@ export default function HomePage() {
                   <div
                     className="social-icon"
                     style={{
-                      backgroundColor: 'rgba(37,211,102,0.1)',
-                      borderColor: 'rgba(37,211,102,0.2)',
+                      backgroundColor: 'rgba(37,211,102,0.08)',
+                      borderColor: 'rgba(37,211,102,0.15)',
                     }}
                   >
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366">
@@ -1672,27 +1676,63 @@ export default function HomePage() {
                     </svg>
                   </div>
                   <div className="social-info">
-                    <div className="social-name">واتساب</div>
+                    <div className="social-name">واتساب مباشر</div>
                     <div className="social-handle">966592843956+</div>
                   </div>
                   <div className="social-action">راسلني ←</div>
                 </a>
 
+                {/* TELEGRAM */}
+                <a
+                  href="https://t.me/DigitalStoresSolutions"
+                  className="social-card animate-fade-in"
+                  style={{
+                    '--card-bg': 'rgba(36,161,222,0.06)',
+                    '--card-border': 'rgba(36,161,222,0.18)',
+                    '--card-bg-hover': 'rgba(36,161,222,0.12)',
+                    '--card-border-hover': 'rgba(36,161,222,0.35)',
+                    '--card-hover-shadow': '0 8px 25px rgba(36,161,222,0.14)',
+                  } as React.CSSProperties}
+                  target="_blank"
+                  rel="noreferrer"
+                  id="social-tg-link"
+                >
+                  <div
+                    className="social-icon"
+                    style={{
+                      backgroundColor: 'rgba(36,161,222,0.08)',
+                      borderColor: 'rgba(36,161,222,0.15)',
+                    }}
+                  >
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="#24A1DE">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.35-.49.97-.74 3.79-1.65 6.32-2.73 7.58-3.25 3.61-1.48 4.36-1.74 4.85-1.75.11 0 .35.03.5.16.13.12.17.29.19.41-.02.11-.01.25-.02.3z" />
+                    </svg>
+                  </div>
+                  <div className="social-info">
+                    <div className="social-name">حلول المتاجر الرقمية</div>
+                    <div className="social-handle">@DigitalStoresSolutions</div>
+                  </div>
+                  <div className="social-action">اشترك الآن ←</div>
+                </a>
+
                 {/* EMAIL */}
                 <a
                   href="mailto:ownerafaf@gmail.com"
-                  className="social-card"
+                  className="social-card animate-fade-in"
                   style={{
-                    backgroundColor: 'rgba(201,127,181,0.1)',
-                    borderColor: 'rgba(201,127,181,0.2)',
-                  }}
+                    '--card-bg': 'rgba(201,127,181,0.05)',
+                    '--card-border': 'rgba(201,127,181,0.15)',
+                    '--card-bg-hover': 'rgba(201,127,181,0.10)',
+                    '--card-border-hover': 'rgba(201,127,181,0.30)',
+                    '--card-hover-shadow': '0 8px 25px rgba(201,127,181,0.12)',
+                  } as React.CSSProperties}
                   id="social-email-link"
                 >
                   <div
                     className="social-icon"
                     style={{
-                      backgroundColor: 'rgba(201,127,181,0.08)',
-                      borderColor: 'rgba(201,127,181,0.15)',
+                      backgroundColor: 'rgba(201,127,181,0.06)',
+                      borderColor: 'rgba(201,127,181,0.12)',
                     }}
                   >
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C97FB5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -1724,6 +1764,16 @@ export default function HomePage() {
                   <Briefcase className="w-4 h-4 text-[#A990D4] shrink-0" />
                   <span>البورتفوليو</span>
                 </button>
+                <a
+                  href="https://t.me/DigitalStoresSolutions"
+                  className="quick-link flex items-center justify-center gap-2 text-center no-underline md:col-span-2 border-[rgba(36,161,222,0.3)] bg-[rgba(36,161,222,0.06)] hover:bg-[rgba(36,161,222,0.1)] text-[#24A1DE] font-bold"
+                  target="_blank"
+                  rel="noreferrer"
+                  id="link-quick-tg"
+                >
+                  <Send className="w-4 h-4 text-[#24A1DE] shrink-0" />
+                  <span>اشترك في قناة تليجرام «حلول المتاجر الرقمية» ✦</span>
+                </a>
                 <a
                   href="https://wa.me/966592843956?text=هلا عفاف! أبي أتعاون معك 💼"
                   className="quick-link flex items-center justify-center gap-2 text-center no-underline md:col-span-2"
