@@ -1,5 +1,6 @@
 import type {Metadata} from 'next';
 import { IBM_Plex_Sans_Arabic, Syne } from 'next/font/google';
+import Script from 'next/script';
 import './globals.css'; // Global styles
 
 const ibmPlexSansArabic = IBM_Plex_Sans_Arabic({
@@ -128,6 +129,18 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="ar" dir="rtl" className={`${ibmPlexSansArabic.variable} ${syne.variable}`}>
       <body suppressHydrationWarning className="font-sans antialiased bg-[#0C0B10] text-[#EDE9F5]">
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-9MG1Y9PXCE"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-9MG1Y9PXCE');
+          `}
+        </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
