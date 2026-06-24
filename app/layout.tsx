@@ -130,11 +130,26 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
       <head>
         {/* Google Tag Manager */}
         <script dangerouslySetInnerHTML={{
-          __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-NN4KZFH4');`
+          __html: `try {
+            (function(w,d,s,l,i){
+              w[l]=w[l]||[];
+              w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+              var j=d.createElement(s);
+              var dl=l!='dataLayer'?'&l='+l:'';
+              j.async=true;
+              j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+              var f=d.getElementsByTagName(s)[0];
+              if (f && f.parentNode) {
+                f.parentNode.insertBefore(j,f);
+              } else if (d.head) {
+                d.head.appendChild(j);
+              } else if (d.body) {
+                d.body.appendChild(j);
+              }
+            })(window,document,'script','dataLayer','GTM-NN4KZFH4');
+          } catch (e) {
+            console.warn('Google Tag Manager failed to initialize:', e);
+          }`
         }} />
       </head>
       <body suppressHydrationWarning className="font-sans antialiased bg-[#0C0B10] text-[#EDE9F5]">
