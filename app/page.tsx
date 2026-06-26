@@ -1458,31 +1458,37 @@ export default function HomePage() {
                               </span>
                             </div>
                             
-                            <button className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${
-                              isCopied 
-                                ? 'bg-emerald-500 text-white' 
-                                : 'bg-[var(--bg3)] text-[var(--pur-light)] group-hover/coupon:text-[var(--accent)]'
-                            }`}>
-                              {isCopied ? (
-                                <Check className="w-4.5 h-4.5" />
-                              ) : (
-                                <Copy className="w-4.5 h-4.5" />
-                              )}
-                            </button>
+                            <div className="relative">
+                              <button className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${
+                                isCopied 
+                                  ? 'bg-emerald-500 text-white' 
+                                  : 'bg-[var(--bg3)] text-[var(--pur-light)] group-hover/coupon:text-[var(--accent)]'
+                              }`}>
+                                {isCopied ? (
+                                  <Check className="w-4.5 h-4.5" />
+                                ) : (
+                                  <Copy className="w-4.5 h-4.5" />
+                                )}
+                              </button>
 
-                            {/* Floating temporary tooltip */}
-                            <AnimatePresence>
-                              {isCopied && (
-                                <motion.div 
-                                  initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                                  exit={{ opacity: 0, scale: 0.9 }}
-                                  className="absolute -top-8 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded bg-emerald-600 text-white text-[10px] font-bold shadow-md z-10 whitespace-nowrap"
-                                >
-                                  تم نسخ الكوبون! ✅
-                                </motion.div>
-                              )}
-                            </AnimatePresence>
+                              {/* Floating temporary tooltip directly above the code button */}
+                              <AnimatePresence>
+                                {isCopied && (
+                                  <motion.div 
+                                    initial={{ opacity: 0, y: 8, scale: 0.8 }}
+                                    animate={{ opacity: 1, y: -4, scale: 1 }}
+                                    exit={{ opacity: 0, y: -8, scale: 0.8 }}
+                                    transition={{ type: "spring", stiffness: 350, damping: 20 }}
+                                    className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded bg-emerald-600 text-white text-[11px] font-bold shadow-lg z-50 whitespace-nowrap flex items-center gap-1"
+                                  >
+                                    <span>تم نسخ الكود!</span>
+                                    <span>✅</span>
+                                    {/* Small arrow pointing down to the button */}
+                                    <div className="absolute top-[99%] left-1/2 -translate-x-1/2 border-4 border-transparent border-t-emerald-600" />
+                                  </motion.div>
+                                )}
+                              </AnimatePresence>
+                            </div>
                           </div>
 
                           {/* CTA to use Coupon Link & Share */}
