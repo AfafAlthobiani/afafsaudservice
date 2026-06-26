@@ -123,6 +123,35 @@ const getTagStyles = (tag: string, theme: 'dark' | 'light') => {
   };
 };
 
+const renderFreelanceDocument = (theme: 'dark' | 'light') => {
+  return (
+    <div className={`mt-4 flex items-center gap-2.5 px-3 py-1.5 rounded-xl border transition-all duration-300 max-w-[245px] w-full ${
+      theme === 'dark'
+        ? 'bg-[#13111A]/95 border-[rgba(126,104,171,0.15)]'
+        : 'bg-white border-[rgba(126,104,171,0.12)] shadow-sm'
+    }`} dir="rtl">
+      <div className="relative h-6 w-16 shrink-0 flex items-center justify-center overflow-hidden rounded bg-white p-0.5 border border-gray-100">
+        <NextImage
+          src="https://saudipedia.com/var/site/storage/images/6/6/6/2/4252666-1-ara-SA/4178c68ab4ae-86595.jpg"
+          alt="شعار العمل الحر"
+          width={64}
+          height={20}
+          className="object-contain"
+          referrerPolicy="no-referrer"
+        />
+      </div>
+      <div className="flex flex-col text-right leading-none gap-0.5">
+        <span className="text-[7.5px] text-[#7A718E] font-medium leading-none">وثيقة العمل الحر</span>
+        <span className="text-[9.5px] font-bold text-[#C97FB5] font-mono tracking-wide leading-none">FL-302277938</span>
+      </div>
+      <div className="mr-auto flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[7px] font-bold bg-emerald-500/10 text-emerald-500 border border-emerald-500/15">
+        <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
+        <span>نشط</span>
+      </div>
+    </div>
+  );
+};
+
 export default function HomePage() {
   // Theme state: 'dark' | 'light'
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
@@ -606,6 +635,32 @@ export default function HomePage() {
                 </div>
               </div>
 
+              {/* وثيقة العمل الحر المعتمدة */}
+              <div className="flex justify-center mb-10 -mt-2 px-4" dir="rtl">
+                <a 
+                  href="https://freelance.sa" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className={`flex items-center gap-2.5 px-4.5 py-2.5 rounded-2xl border transition-all duration-300 ${
+                    theme === 'dark'
+                      ? 'bg-[#13111A]/80 border-[rgba(126,104,171,0.2)] text-[#EDE9F5] hover:border-[#C97FB5]/40 hover:shadow-[0_0_15px_rgba(201,127,181,0.15)]'
+                      : 'bg-white border-[rgba(126,104,171,0.15)] text-[#241E30] hover:border-[#C97FB5]/50 hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)] shadow-sm'
+                  }`}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#A990D4]/20 to-[#C97FB5]/20 flex items-center justify-center shrink-0">
+                    <Briefcase className="w-4.5 h-4.5 text-[#C97FB5]" />
+                  </div>
+                  <div className="flex flex-col text-right">
+                    <span className="text-[10px] text-[var(--muted)] font-medium leading-none mb-1">وثيقة العمل الحر المعتمدة</span>
+                    <span className="text-xs font-bold font-mono tracking-wide text-[var(--accent)]">FL-302277938</span>
+                  </div>
+                  <div className="mr-3 px-2 py-0.5 rounded-full text-[9.5px] font-bold bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20">
+                    نشط ومعتمد
+                  </div>
+                </a>
+              </div>
+
               <div className="section-header">
                 <div className="section-dot" />
                 <div className="section-title">خدماتنا</div>
@@ -865,6 +920,7 @@ export default function HomePage() {
                     <span>المملكة العربية السعودية</span>
                   </span>
                 </span>
+                {renderFreelanceDocument(theme)}
               </footer>
             </div>
           )}
@@ -1023,7 +1079,7 @@ export default function HomePage() {
                             }`}
                           >
                             {renderWaIcon("w-4 h-4 fill-current")}
-                            <span>عندك منصة محددة؟ بلغنا.&quot; 🚀</span>
+                            <span>عندك منصة محددة؟ بلغنا 🚀</span>
                           </a>
                         </div>
                       </motion.div>
@@ -1253,6 +1309,7 @@ export default function HomePage() {
                   <MapPin className="w-3 h-3 text-[#C97FB5]" />
                   <span>المملكة العربية السعودية</span>
                 </span>
+                {renderFreelanceDocument(theme)}
               </footer>
             </div>
           )}
@@ -1370,22 +1427,18 @@ export default function HomePage() {
                             {item.product}
                           </h3>
 
-                          {/* Exceptions and Sub-Marketer information */}
-                          <div className="space-y-1.5 mb-6 text-sm">
-                            <div className="flex items-center gap-1.5 text-[#7A718E] dark:text-[#A990D4]">
-                              <span className="font-semibold text-xs opacity-75">الاستثناءات:</span>
-                              <span className="text-xs">{item.exceptions || 'لا يوجد'}</span>
-                            </div>
-                            {item.subMarketer && item.subMarketer !== '—' && (
-                              <div className="flex items-center gap-1.5 text-[#7A718E] dark:text-[#A990D4]">
-                                <span className="font-semibold text-xs opacity-75">المسوّق الفرعي:</span>
-                                <span className="text-xs">{item.subMarketer}</span>
-                              </div>
-                            )}
-                          </div>
-                        </div>
+                          {/* Sub-Marketer information */}
+                           {item.subMarketer && item.subMarketer !== '—' && (
+                             <div className="space-y-1.5 mb-6 text-sm">
+                               <div className="flex items-center gap-1.5 text-[#7A718E] dark:text-[#A990D4]">
+                                 <span className="font-semibold text-xs opacity-75">المسوّق الفرعي:</span>
+                                 <span className="text-xs">{item.subMarketer}</span>
+                               </div>
+                             </div>
+                           )}
+                         </div>
 
-                        {/* Interactive Coupon Box with Dashed Border */}
+                         {/* Interactive Coupon Box with Dashed Border */}
                         <div className="space-y-4">
                           <div 
                             onClick={() => handleCopyCoupon(item.id, item.coupon)}
@@ -1506,6 +1559,7 @@ export default function HomePage() {
                   <MapPin className="w-3 h-3 text-[#C97FB5]" />
                   <span>المملكة العربية السعودية</span>
                 </span>
+                {renderFreelanceDocument(theme)}
               </footer>
             </div>
           )}
@@ -1614,6 +1668,7 @@ export default function HomePage() {
                   <MapPin className="w-3 h-3 text-[#C97FB5]" />
                   <span>المملكة العربية السعودية</span>
                 </span>
+                {renderFreelanceDocument(theme)}
               </footer>
             </div>
           )}
@@ -1796,6 +1851,7 @@ export default function HomePage() {
                     <span>المملكة العربية السعودية</span>
                   </span>
                 </span>
+                {renderFreelanceDocument(theme)}
               </footer>
             </div>
           )}
