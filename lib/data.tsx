@@ -625,6 +625,16 @@ export const coupons: CouponItem[] = [
     link: 'https://mtjr.at/6a39bbd0945r1t'
   },
   {
+    id: 'coupon-lima',
+    coupon: 'F-Y6IR2MFU',
+    product: 'ليما',
+    productType: 'ثيم',
+    exceptions: 'لا يوجد',
+    subMarketer: '—',
+    status: 'active',
+    link: 'https://mtjr.at/6a3ec60et56yh1'
+  },
+  {
     id: 'coupon-6',
     coupon: 'F-FT0F7WTP',
     product: 'علي اكسبريس - أوتو دروب',
