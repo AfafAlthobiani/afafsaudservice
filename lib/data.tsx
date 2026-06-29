@@ -523,19 +523,18 @@ export const portfolioItems: PortfolioItem[] = [
     cat: 'websites',
     type: 'موقع تعريفي متكامل',
     name: 'الموقع الرسمي لمكتب الرواد للمحاماة والاستشارات القانونية',
-    tags: ['صفحة رئيسية', 'باقة خدمات', 'استمارة تواصل', 'Figma'],
+    tags: ['صفحة رئيسية', 'باقة خدمات', 'استمارة تواصل'],
     mockType: 'websites',
+    previewUrl: 'https://al-ruwad-law.vercel.app',
     customMockUp: (
-      <div className="port-mock-inner p-[12px] flex flex-col items-center justify-center">
-        <div className="text-[7.5px] text-zinc-400 font-bold uppercase tracking-[1.5px] mb-[4px]">AL-RUWAD LAW</div>
-        <div className="w-[36px] h-[36px] rounded-lg border border-zinc-500/20 flex flex-col items-center justify-center bg-[rgba(255,255,255,0.02)] mb-[6px] relative">
-          <span className="text-[10px] text-zinc-300">⚖</span>
-        </div>
-        <div className="w-[80%] h-[3.5px] rounded-[1px] bg-zinc-400/50 mb-[3px]" />
-        <div className="w-[50%] h-[3px] rounded-[1px] bg-zinc-500/30" />
-        <div className="mt-[8px] w-full flex justify-center">
-          <span className="text-[5.5px] text-[#C97FB5] border border-[#C97FB5]/30 bg-[#C97FB5]/5 px-2 py-0.5 rounded-full">استشارة مجانية</span>
-        </div>
+      <div className="port-mock-inner !p-0 w-full h-full overflow-hidden relative">
+        <Image 
+          src="https://i.imgur.com/Ucv9ZHJ.png" 
+          alt="الموقع الرسمي لمكتب الرواد للمحاماة والاستشارات القانونية" 
+          fill
+          className="object-cover select-none object-center transition-all duration-500 hover:scale-105" 
+          referrerPolicy="no-referrer"
+        />
       </div>
     )
   },
